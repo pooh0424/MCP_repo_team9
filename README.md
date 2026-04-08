@@ -33,7 +33,7 @@
 
 ```
 ├── server.py              # MCP Server 主程式
-├── agent.py               # MCP Client + Gemini Agent（用 AI 產生）
+├── agent.py               # MCP Client + Gemini Agent
 ├── tools/
 │   ├── __init__.py
 │   ├── weather_tool.py           # 呂紹銘的 Tool
@@ -84,18 +84,27 @@ python agent.py
 
 ## 各 Tool 說明
 
-### `tool_name`（負責：姓名）
+### `get_weather`（負責：呂紹銘）
 
-- **功能**：
-- **使用 API**：
-- **參數**：
+- **功能**：查詢目的地天氣
+- **使用 API**：`https://wttr.in/{city}?format=j1`
+- **參數**：`city` (字串，代表要查詢的城市名稱)
 - **回傳範例**：
+
+```text
+📍 Taipei 目前天氣狀況：
+☁️ 天氣：Light rain
+🌡️ 溫度：21°C
+💧 濕度：94%
+💨 風速：14 km/h
+```
 
 ```python
 @mcp.tool()
-def tool_name(param: str) -> str:
-    """Tool 的 docstring（這就是 AI 看到的描述）"""
-    ...
+def get_weather(city: str) -> str:
+    """取得指定城市的即時天氣資訊。
+    當使用者詢問天氣、溫度、是否該帶傘時使用。"""
+    return get_weather_data(city)
 ```
 
 ### `get_advice`（負責：曹世杰）
@@ -129,8 +138,8 @@ def tool_name(param: str) -> str:
 
 ### 遇到最難的問題
 
-> 寫下這次實作遇到最困難的事，以及怎麼解決的
+這次實作遇到比較困難的地方在於一開始要把 MCP Server 和 Agent 分開兩個終端機執行，並且理解它們之間 SSE (Server-Sent Events) 的連線與溝通機制。此外，在測試 Agent 呼叫 Gemini API 時，也遇到了 API Key 額度耗盡 (Quota Exceeded) 的狀況，後來透過去 Google AI Studio 申請新的 API Key 才順利完成測試。作為組長在整併大家開發的 Tools 到 `server.py` 時，也要特別注意 Git 的分支控管和合併衝突。
 
 ### MCP 跟上週的 Tool Calling 有什麼不同？
 
-> 用自己的話說說，做完後你覺得 MCP 的好處是什麼
+過去的 Tool Calling 通常需要把工具的程式碼邏輯跟 Agent (LLM) 的主程式綁死在一起，擴充與維護起來比較麻煩。而導入 MCP (Model Context Protocol) 後，最大的好處是「解耦（Decoupling）」。MCP Server 就像是一個獨立提供服務的載體（統一管理 Tools、Resources 和 Prompts），而 Agent 只要根據標準協議連上這個 Server，就可以自動「發現」並使用這些能力。這樣不僅讓程式碼架構更清晰，也做到一次開發能力即可給多個不同環境或 LLM Client 共用！
