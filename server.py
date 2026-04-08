@@ -12,7 +12,7 @@ W8 分組實作：MCP Server
 from mcp.server.fastmcp import FastMCP
 from tools.weather_tool import get_weather_data
 from tools.get_activity_tool import get_activity_data
-from tools.get_advice_tool import get_advice
+from tools.get_advice_tool import get_advice as get_advice_data
 
 mcp = FastMCP("旅遊顧問-server")
 
@@ -40,7 +40,7 @@ def get_activity() -> str:
 @mcp.tool()
 def get_advice() -> str:
     """取得一個隨機人生建議。當使用者想知道旅行前的人生建議時使用。"""
-    return get_advice()
+    return get_advice_data()
 
 # ════════════════════════════════
 #  Resource：提供靜態參考資料

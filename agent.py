@@ -58,7 +58,7 @@ async def run_agent():
                 
                 # 建立 Chat Session
                 chat = client.chats.create(
-                    model="gemini-2.0-flash",
+                    model="gemini-2.5-flash",
                     config=types.GenerateContentConfig(
                         temperature=0.7,
                         tools=[tool_config] if gemini_tools else None
