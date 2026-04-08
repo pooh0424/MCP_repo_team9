@@ -11,6 +11,7 @@ W8 分組實作：MCP Server
 
 from mcp.server.fastmcp import FastMCP
 from tools.weather_tool import get_weather_data
+from tools.get_activity_tool import get_activity_data
 
 mcp = FastMCP("旅遊顧問-server")
 
@@ -30,6 +31,10 @@ def hello(name: str) -> str:
     """跟使用者打招呼。測試用，確認 MCP Server 正常運作。"""
     return f"你好，{name}！MCP Server 運作正常 🎉"
 
+@mcp.tool()
+def get_activity() -> str:
+    """取得一個隨機活動建議。當使用者想知道旅行中可以做什麼時使用。"""
+    return get_activity_data()
 
 # ════════════════════════════════
 #  Resource：提供靜態參考資料
