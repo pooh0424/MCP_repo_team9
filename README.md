@@ -9,23 +9,23 @@
 
 > 說明這個 MCP Server 提供哪些 Tool
 
-| Tool 名稱               | 功能說明         | 負責組員 |
-| ----------------------- | ---------------- | -------- |
-| （範例：`get_weather`） | 查詢即時天氣     |          |
-| get_advice              | 旅行前的人生建議 | 曹世杰   |
-|                         |                  |          |
+| Tool 名稱               | 功能說明    | 負責組員 |
+| ----------------------- |---------|------|
+| （範例：`get_weather`） | 查詢即時天氣  |      |
+| get_advice              | 旅行前的人生建議 | 曹世杰  |
+| get_activity	   | 推薦活動    | 林楷祐  |
 
 ---
 
 ## 組員與分工
 
-| 姓名   | 負責功能            | 檔案                       | 使用的 API                        |
-| ------ | ------------------- | -------------------------- | --------------------------------- |
-|        |                     | `tools/`                   |                                   |
-| 曹世杰 | 旅行前的人生建議    | `tools/get_advice_tool.py` | https://api.adviceslip.com/advice |
-|        |                     | `tools/`                   |                                   |
-|        | Resource + Prompt   | `server.py`                | —                                 |
-|        | Agent（用 AI 產生） | `agent.py`                 | Gemini API                        |
+| 姓名  | 負責功能            | 檔案                           | 使用的 API                        |
+|-----| ------------------- |------------------------------| --------------------------------- |
+|     |                     | `tools/`                     |                                   |
+| 曹世杰 | 旅行前的人生建議    | `tools/get_advice_tool.py`   | https://api.adviceslip.com/advice |
+| 林楷祐 | 推薦活動   | `tools/get_activity_tool.py` |  https://bored-api.appbrewery.com/random   |
+|     | Resource + Prompt   | `server.py`                  | —                                 |
+|     | Agent（用 AI 產生） | `agent.py`                   | Gemini API                        |
 
 ---
 
@@ -39,7 +39,7 @@
 │   ├── example_tool.py    # 範例（可刪除）
 │   ├── get_advice_tool.py        # 組員 A 的 Tool
 │   ├── xxx_tool.py        # 組員 B 的 Tool
-│   └── xxx_tool.py        # 組員 C 的 Tool
+│   └── get_activity_tool.py        # 組員 C 的 Tool
 ├── requirements.txt
 ├── .env.example
 ├── .gitignore
@@ -106,12 +106,23 @@ def tool_name(param: str) -> str:
 - **參數**：無
 - **回傳範例**： If you're feeling tired or anxious, a pint of water will almost always make you feel better.
 
-### `tool_name`（負責：姓名）
+### `get_activity`（負責：林楷祐）
 
-- **功能**：
-- **使用 API**：
-- **參數**：
+- **功能**：推薦活動
+- **使用 API**：https://bored-api.appbrewery.com/random
+- **參數**：無
 - **回傳範例**：
+```
+推薦活動：Learn the Chinese erhu
+可行性：0.4
+活動類型：music
+建議人數：1 人
+花費：0.6
+容易程度：Few to no challenges
+活動時間：hours
+適合小孩：是
+活動編號：2742452
+```
 
 ---
 
