@@ -74,11 +74,13 @@ python agent.py
 
 ### MCP Inspector 截圖
 
-> 貼上 Inspector 的截圖（Tools / Resources / Prompts 三個分頁都要有）
+![Tools 分頁](images/tools.png)
+![Resources 分頁](images/resources.png)
+![Prompts 分頁](images/prompts.png)
 
 ### Agent 對話截圖
 
-> 貼上 Agent 對話的截圖（顯示 Gemini 呼叫 Tool 的過程，以及使用 /use 呼叫 Prompt 的結果）
+![Agent 測試對話](images/agent_chat.png)
 
 ---
 
