@@ -17,20 +17,27 @@ TOOL_INFO = {
 
 def get_activity_data() -> str:
     """呼叫 Bored API，回傳一個活動建議"""
-    resp = requests.get("https://bored-api.appbrewery.com/random", timeout=10)
-    resp.raise_for_status()
-    data = resp.json()
+    try:
+        resp = requests.get("https://bored-api.appbrewery.com/random", timeout=10)
+        resp.raise_for_status()
+        data = resp.json()
+    except requests.exceptions.HTTPError as e:
+        if resp.status_code == 429:
+            return "很抱歉，目前活動建議的伺服器人數過多（Error 429: Too Many Requests），請稍後再試。"
+        return f"取得活動建議時發生錯誤：{str(e)}"
+    except Exception as e:
+        return f"取得活動建議時發生錯誤：{str(e)}"
 
-    activity = data["activity"]
-    availability = data["availability"]
-    activity_type = data["type"]
-    participants = data["participants"]
-    price = data["price"]
-    accessibility = data["accessibility"]
-    duration = data["duration"]
-    kid_friendly = "是" if data["kidFriendly"] else "否"
-    link = data["link"]
-    key = data["key"]
+    activity = data.get("activity", "未知活動")
+    availability = data.get("availability", "未知")
+    activity_type = data.get("type", "未知")
+    participants = data.get("participants", "未知")
+    price = data.get("price", "未知")
+    accessibility = data.get("accessibility", "未知")
+    duration = data.get("duration", "未知")
+    kid_friendly = "是" if data.get("kidFriendly") else "否"
+    link = data.get("link", "")
+    key = data.get("key", "未知")
 
     result = (
         f"推薦活動：{activity}\n"
