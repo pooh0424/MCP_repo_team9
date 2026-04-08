@@ -9,23 +9,23 @@
 
 > 說明這個 MCP Server 提供哪些 Tool
 
-| Tool 名稱                 | 功能說明     | 負責組員 |
-| ------------------------- | ------------ | -------- |
-| （範例：`get_weather`） | 查詢即時天氣 |          |
-|                           |              |          |
-|                           |              |          |
+| Tool 名稱               | 功能說明         | 負責組員 |
+| ----------------------- | ---------------- | -------- |
+| （範例：`get_weather`） | 查詢即時天氣     |          |
+| get_advice              | 旅行前的人生建議 | 曹世杰   |
+|                         |                  |          |
 
 ---
 
 ## 組員與分工
 
-| 姓名 | 負責功能            | 檔案          | 使用的 API |
-| ---- | ------------------- | ------------- | ---------- |
-|      |                     | `tools/`    |            |
-|      |                     | `tools/`    |            |
-|      |                     | `tools/`    |            |
-|      | Resource + Prompt   | `server.py` | —         |
-|      | Agent（用 AI 產生） | `agent.py`  | Gemini API |
+| 姓名   | 負責功能            | 檔案                       | 使用的 API                        |
+| ------ | ------------------- | -------------------------- | --------------------------------- |
+|        |                     | `tools/`                   |                                   |
+| 曹世杰 | 旅行前的人生建議    | `tools/get_advice_tool.py` | https://api.adviceslip.com/advice |
+|        |                     | `tools/`                   |                                   |
+|        | Resource + Prompt   | `server.py`                | —                                 |
+|        | Agent（用 AI 產生） | `agent.py`                 | Gemini API                        |
 
 ---
 
@@ -37,7 +37,7 @@
 ├── tools/
 │   ├── __init__.py
 │   ├── example_tool.py    # 範例（可刪除）
-│   ├── xxx_tool.py        # 組員 A 的 Tool
+│   ├── get_advice_tool.py        # 組員 A 的 Tool
 │   ├── xxx_tool.py        # 組員 B 的 Tool
 │   └── xxx_tool.py        # 組員 C 的 Tool
 ├── requirements.txt
@@ -99,12 +99,12 @@ def tool_name(param: str) -> str:
     ...
 ```
 
-### `tool_name`（負責：姓名）
+### `get_advice`（負責：曹世杰）
 
-- **功能**：
-- **使用 API**：
-- **參數**：
-- **回傳範例**：
+- **功能**：旅行前的人生建議
+- **使用 API**：https://api.adviceslip.com/advice
+- **參數**：無
+- **回傳範例**： If you're feeling tired or anxious, a pint of water will almost always make you feel better.
 
 ### `tool_name`（負責：姓名）
 
